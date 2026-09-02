@@ -137,6 +137,7 @@ begin
   # solo quando l'ULTIMO messaggio è dell'utente (così non risponde dove Ale sta già
   # scrivendo a mano) e contiene una parola chiave.
   if cfg["dm_keywords_enabled"]
+   begin
     state["dm_replied"] ||= {}
     convos = api_get("#{env['IG_USER_ID']}/conversations", {
       "platform"     => "instagram",
@@ -172,6 +173,13 @@ begin
       File.write(STATE, JSON.pretty_generate(state))
       sleep 1
     end
+   rescue => e
+    # I DM richiedono l'App Review di Meta (accesso avanzato a
+    # instagram_manage_messages). Finché non c'è, l'endpoint conversations
+    # risponde "capability" (#3): lo registriamo una volta e NON blocchiamo
+    # il resto del bot (i commenti funzionano comunque).
+    log "DM non disponibili (serve App Review Meta): #{e.message}"
+   end
   end
 
   File.write(STATE, JSON.pretty_generate(state))

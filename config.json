@@ -14,7 +14,7 @@
     "Guarda i messaggi",
     "Ti ho scritto un messaggio"
   ],
-  "dm_keywords_enabled": true,
+  "dm_keywords_enabled": false,
   "media_limit": 10,
   "max_comment_age_days": 6
 }
