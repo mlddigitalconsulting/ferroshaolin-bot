@@ -1,7 +1,19 @@
 {
-  "keywords": ["link"],
-  "dm_message": "Ciao! 🙏 Ecco il link che cercavi: https://ferroshaolin.ch\nSe hai domande scrivimi pure qui!",
-  "public_reply": "Ti ho scritto in DM 📩",
+  "rules": [
+    {
+      "keywords": ["info"],
+      "dm_message": "Ciao, se vuoi info sulla mia scuola vai sul sito www.shaolinskungfu.com e trovi tutti i dati che ti servono tra costi e informazioni varie. Per iscriverti, clicca sul pulsante \"apply\" e compila la \"application form\". Alla penultima voce, digita il nome della mia pagina \"ferroshaolin\" nello spazio \"referral or Promotional code\" di modo che la scuola sappia che sei raccomandat* da me. In seguito la scuola ti manderà una lettera di invito con la quale potrai fare il visto per venire in Cina. Ti ricordo che tutti i costi e le pratiche aggiuntive quali aereo e visto sono tua responsabilità e non della scuola. In caso verrai, ci vediamo qui :)\n\n💰 Quanto costa?\nhttps://www.shaolinskungfu.com/School-Fees.html\n\n📄 Come funziona l'iscrizione?\nhttps://www.shaolinskungfu.com/Apply.html"
+    },
+    {
+      "keywords": ["corso"],
+      "dm_message": "Ciao, grazie di aver interagito con il mio post🙏\nEccoti il link al mio corso base Shaolin, guardalo e fammi sapere cosa ne pensi!\nQuesto è solo l'inizio🐉\nhttps://dm.stan.store/JAzPQA?mid=18114594649769497"
+    }
+  ],
+  "public_replies": [
+    "Ti ho scritto in privato",
+    "Guarda i messaggi",
+    "Ti ho scritto un messaggio"
+  ],
   "media_limit": 10,
   "max_comment_age_days": 6
 }
