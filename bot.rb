@@ -132,8 +132,50 @@ begin
     end
   end
 
+  # --- DM diretti: chi scrive "info"/"corso" in chat riceve la stessa risposta ---
+  # Solo se la config lo abilita (dm_keywords_enabled), una volta per conversazione,
+  # solo quando l'ULTIMO messaggio è dell'utente (così non risponde dove Ale sta già
+  # scrivendo a mano) e contiene una parola chiave.
+  if cfg["dm_keywords_enabled"]
+    state["dm_replied"] ||= {}
+    convos = api_get("#{env['IG_USER_ID']}/conversations", {
+      "platform"     => "instagram",
+      "fields"       => "id,messages.limit(5){id,from,message,created_time}",
+      "limit"        => 20,
+      "access_token" => token,
+    })["data"] || []
+
+    convos.each do |conv|
+      msgs = (conv.dig("messages", "data") || []).sort_by { |m| m["created_time"].to_s }
+      last = msgs.last
+      next if last.nil?
+      # l'ultimo messaggio deve essere dell'UTENTE, non nostro
+      next if last.dig("from", "id").to_s == env["IG_USER_ID"].to_s
+      sender = last.dig("from", "id").to_s
+      next if sender.empty?
+      next if state["dm_replied"][sender]
+
+      rule = cfg["rules"].find { |r| matches?(last["message"], r["keywords"]) }
+      next unless rule
+
+      begin
+        api_post("#{env['IG_USER_ID']}/messages", {
+          "recipient" => { "id" => sender },
+          "message"   => { "text" => rule["dm_message"] },
+        }, token)
+        state["dm_replied"][sender] = { "ok" => true, "rule" => rule["keywords"].first }
+        log "Risposta DM a #{sender} [#{rule['keywords'].first}] (messaggio: #{last['message'].to_s[0, 60].inspect})"
+        handled += 1
+      rescue => e
+        log "ERRORE risposta DM a #{sender}: #{e.message}"
+      end
+      File.write(STATE, JSON.pretty_generate(state))
+      sleep 1
+    end
+  end
+
   File.write(STATE, JSON.pretty_generate(state))
-  log "Passaggio completato: #{handled} DM inviati" if handled > 0
+  log "Passaggio completato: #{handled} invii" if handled > 0
 rescue => e
   log "ERRORE: #{e.message}"
   exit 1
