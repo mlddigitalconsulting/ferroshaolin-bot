@@ -11,11 +11,15 @@ il risultato è lo stesso.
 - [ ] Verificare che in questa cartella ci siano: `.env`, `bot.py`, `config.json`,
       `state.json`, `setup_token.py`, questa guida.
 
-## In call — passo 1: trasferire la cartella
+## In call — passo 1: trasferire la cartella (Ale è in Cina, niente AirDrop)
 
-AirDrop dell'intera cartella `~/Automazioni/ferroshaolin` dal Mac di Mattia
-al Mac di Ale (contiene il `.env` coi token: MAI via email).
-Arriva in `~/Downloads/ferroshaolin`.
+Via **SwissTransfer** (swisstransfer.com): caricare lo zip `ferroshaolin-bot.zip`,
+**attivare la password di download** nelle opzioni, scadenza breve (1-7 giorni).
+La password si comunica **a voce in call** (mai nello stesso messaggio del link).
+Il pacchetto contiene il `.env` coi token: per questo la password è obbligatoria.
+
+Ale scarica lo zip e lo scompatta: doppio click in `~/Downloads` →
+`~/Downloads/ferroshaolin`.
 
 ## In call — passo 2: mettere in posizione (sul Mac di Ale)
 
