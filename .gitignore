@@ -2,4 +2,3 @@
 *.log
 state.json
 .DS_Store
-config.json
